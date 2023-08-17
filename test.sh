@@ -1,9 +1,13 @@
 #!/usr/bin/zsh -e
 
+filepath=$1;
+ 
+# Extract the filename with extension from the file path
+filename=$(basename "$filepath")
+ 
+# Extract the filename without the extension
+filename="${filename%.*}"
 
-fileName=$1;
-outputfile=$(sed -e 's/\(\.rs\)*$//g' <<<$fileName)
-
-rustc $fileName --out-dir bin;
+rustc $filepath --out-dir bin;
 set -e
-"./bin/$outputfile";
+"./bin/$filename";
